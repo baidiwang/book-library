@@ -1,9 +1,12 @@
-# Getting Started with Create React App
+# Book Library App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project used React for the frontend and Express for the backend. 
+TBC...
 
-## Available Scripts
+## More information
+Check my design in Figma: https://www.figma.com/design/b6RUVO5GreNBg2Hou5MoHy/VISA-assessment-design?node-id=0-1&t=GQoPpgXGvKndMc8X-1
 
+## Command Line
 In the project directory, you can run:
 
 ### `npm start`
