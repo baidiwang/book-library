@@ -6,6 +6,8 @@ TBC...
 ## More information
 Check my design in Figma: https://www.figma.com/design/b6RUVO5GreNBg2Hou5MoHy/VISA-assessment-design?node-id=0-1&t=GQoPpgXGvKndMc8X-1
 
+Sample design: https://pudding.cool/2021/08/spades/
+
 ## Command Line
 In the project directory, you can run:
 
