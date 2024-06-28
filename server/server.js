@@ -79,7 +79,10 @@ let books = [
 ];
 
 // Rest API
-app.get("/books", (req, res) => res.json(books));
+app.get("/books", (req, res) => {
+  console.log("Fetching all books");
+  res.json(books);
+});
 
 // Add a book
 app.post("/books", (req, res) => {
@@ -125,4 +128,6 @@ app.delete("/books/:id", (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log("Server running on port 3001"));
+app.listen(8080, () => {
+  console.log(`Server start http://localhost:8080`);
+});
