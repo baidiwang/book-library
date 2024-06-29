@@ -1,18 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, IconButton, Button } from "@mui/material";
+import { Typography, Box, IconButton, Button, Modal } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../store"
+import InfoIcon from '@mui/icons-material/Info';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  borderRadius: 1,
+  p: 4,
+};
+
 
 function BookList() {
-  const [books, setBooks] = useState([]);
+  const { books, setBooks, deleteBook, setDeleteBook } = useStore()
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
+    getAllBooks();
+  }, []);
+
+  const handleConfirm = () => {
+    if (deleteBook) {
+      fetch("http://localhost:8080/books/" + deleteBook.id, {
+        method: 'DELETE'
+      })
+        .then((data) => {
+          getAllBooks();
+          handleClose();
+        })
+        .catch((error) => console.error("Error delete books:", error));
+    }
+  }
+
+  const getAllBooks = () => {
     fetch("http://localhost:8080/books")
       .then((response) => response.json())
-      .then((data) => setBooks(data))
+      .then((data) => {
+        setBooks(data)
+      })
       .catch((error) => console.error("Error fetching books:", error));
-  }, []);
+  }
 
   return (
     <Box
@@ -27,7 +66,7 @@ function BookList() {
         justifyContent: "flex-end",
         marginTop: 2
       }}>
-        <IconButton color="error">
+        <IconButton color="error" onClick={() => navigate("create")}>
           <AddCircleIcon sx={{fontSize: 40}} />
         </IconButton>
       </Box>
@@ -89,7 +128,10 @@ function BookList() {
               flexShrink: 0
             }}
           >
-            <IconButton color="error" sx={{position: "absolute", right: 5, top: 5}}>
+            <IconButton color="error" sx={{position: "absolute", right: 5, top: 5}} onClick={() => {
+              setDeleteBook(book)
+              handleOpen()
+            }}>
               <CloseIcon />
             </IconButton>
             <Typography variant="h5" component="h2">
@@ -100,10 +142,30 @@ function BookList() {
               Year Published: {book.yearPublished}
             </Typography>
             <Typography variant="subtitle1">Genre: {book.genre}</Typography>
-            <Button color="error" variant="contained">Edit</Button>
+            <Button color="error" variant="contained" onClick={() => navigate("/edit/" + book.id)}>Edit</Button>
           </Box>
         ))}
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography sx={{display: 'flex', alignItems: 'center'}} variant="h6" component="h2">
+            <InfoIcon sx={{marginRight: 1, color: "#d32f2f"}} />
+            Delete Confirm
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Do you really want to delete the book?
+          </Typography>
+          <Box display="flex" justifyContent="flex-end" mt={4}>
+            <Button sx={{marginRight: 1}} variant="outlined" onClick={handleClose}>Cancel</Button>
+            <Button variant="contained" onClick={handleConfirm}>Confirm</Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
