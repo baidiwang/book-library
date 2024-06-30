@@ -6,6 +6,10 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store"
 import InfoIcon from '@mui/icons-material/Info';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+import BulbImage from "../assets/bulb.svg";
 
 const style = {
   position: 'absolute',
@@ -61,6 +65,9 @@ function BookList() {
         height: "100vh"
       }}
     >
+      <Box position="absolute" left={70}>
+        <img src={BulbImage} alt="Bulb Image" width={100} />
+      </Box>
       <Box sx={{
         display: "flex",
         justifyContent: "flex-end",
@@ -114,37 +121,55 @@ function BookList() {
             <ArrowCircleRightIcon sx={{fontSize: 50}} />
           </Box>
         </Box>
-        {books.map((book) => (
-          <Box
-            key={book.id}
-            sx={{
-              position: "relative",
-              border: "1px solid grey",
-              borderRadius: "10px",
-              padding: 2,
-              width: "50vh",
-              height: "80%",
-              backgroundColor: "white",
-              flexShrink: 0
-            }}
-          >
-            <IconButton color="error" sx={{position: "absolute", right: 5, top: 5}} onClick={() => {
-              setDeleteBook(book)
-              handleOpen()
-            }}>
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h5" component="h2">
-              {book.title}
-            </Typography>
-            <Typography variant="subtitle1">Author: {book.author}</Typography>
-            <Typography variant="subtitle1">
-              Year Published: {book.yearPublished}
-            </Typography>
-            <Typography variant="subtitle1">Genre: {book.genre}</Typography>
-            <Button color="error" variant="contained" onClick={() => navigate("/edit/" + book.id)}>Edit</Button>
-          </Box>
-        ))}
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          mousewheel={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Mousewheel]}
+          className="mySwiper"
+        >
+          {books.map((book) => (
+            <SwiperSlide key={book.id}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  position: "relative",
+                  border: "1px solid grey",
+                  borderRadius: "10px",
+                  padding: 5,
+                  height: "100%",
+                  backgroundColor: "white",
+                  flexShrink: 0,
+                  boxSizing: "border-box"
+                }}
+              >
+                <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center" flex={1}>
+                  <IconButton color="error" sx={{position: "absolute", right: 5, top: 5}} onClick={() => {
+                    setDeleteBook(book)
+                    handleOpen()
+                  }}>
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography variant="h5" component="h2">
+                    {book.title}
+                  </Typography>
+                  <Typography variant="subtitle1">Author: {book.author}</Typography>
+                  <Typography variant="subtitle1">
+                    Year Published: {book.yearPublished}
+                  </Typography>
+                  <Typography variant="subtitle1">Genre: {book.genre}</Typography>
+                </Box>
+                <Button color="error" variant="contained" onClick={() => navigate("/edit/" + book.id)}>Edit</Button>
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </Box>
       <Modal
         open={open}

@@ -12,6 +12,9 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../store';
+import BulbsImage from "../assets/bulbs.svg";
+import FeatherImage from "../assets/feather.svg";
+import PenImage from "../assets/pen.svg";
 
 const years = []
 const curYear = new Date().getFullYear()
@@ -86,31 +89,40 @@ function CreateBook() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        padding: 3
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 3,
+        height: "100vh",
+        boxSizing: "border-box"
       }}
     >
-      <Typography
-        variant="h2"
-        component="h2"
-        sx={{ color: "#d32f2f", margin: 2, fontSize: 30 }}
-      >
-        {id ? "EDIT" : "CREATE"} BOOK
-      </Typography>
-
-      <Card sx={{ minWidth: 275, padding: "30px 0" }}>
-        <CardContent sx={{width: 400, margin: "0 auto"}}>
+      <Box position="absolute" left={70} top={0}>
+        <img src={BulbsImage} alt="Bulbs Image" style={{height: "25vh"}} />
+      </Box>
+      <Box position="absolute" left="15%" top="50%">
+        <img src={id ? FeatherImage: PenImage} alt="Feather Image" style={{height: "25vh"}} />
+      </Box>
+      <Box className="book-container" sx={{ width: 800, height: 500, padding: "30px 0" }}>
+        <Box width={400} display="flex" flexDirection="column" px={10} mt={-5} boxSizing="border-box">
+          <Box className="book-label">Title</Box>
+          <Box className="book-label">Author</Box>
+          <Box className="book-label">Age</Box>
+          <Box className="book-label" mb={3}>Genre</Box>
+          <Button variant="contained" color="error" sx={{alignSelf: "flex-start"}} onClick={() => navigate(-1)}>Back</Button>
+        </Box>
+        <Box width={400} display="flex" flexDirection="column" px={10} mt={-5} boxSizing="border-box">
           <Box mb={2}>
             <FormControl fullWidth>
-              <TextField label="Title" variant="outlined" value={title} onChange={e => setTitle(e.target.value)} />
+              <TextField size="small" label="Title" variant="outlined" value={title} onChange={e => setTitle(e.target.value)} />
             </FormControl>
           </Box>
           <Box mb={2}>
             <FormControl fullWidth>
-              <TextField label="Author" variant="outlined" value={author} onChange={e => setAuthor(e.target.value)} />
+              <TextField size="small" label="Author" variant="outlined" value={author} onChange={e => setAuthor(e.target.value)} />
             </FormControl>
           </Box>
           <Box mb={2}>
-            <FormControl fullWidth>
+            <FormControl fullWidth size="small">
               <InputLabel id="year-label">Age</InputLabel>
               <Select
                 labelId="year-label"
@@ -124,8 +136,8 @@ function CreateBook() {
               </Select>
             </FormControl>
           </Box>
-          <Box>
-            <FormControl fullWidth>
+          <Box mb={3}>
+            <FormControl fullWidth size="small">
               <InputLabel id="genre-label">Genre</InputLabel>
               <Select
                 labelId="genre-label"
@@ -139,11 +151,9 @@ function CreateBook() {
               </Select>
             </FormControl>
           </Box>
-        </CardContent>
-        <CardActions sx={{width: 400, margin: "0 auto"}}>
-          <Button variant="contained" onClick={submit}>Submit</Button>
-        </CardActions>
-      </Card>
+          <Button variant="contained" color="error" sx={{alignSelf: "flex-start"}} onClick={submit}>{id ? 'Update' : 'Add'}</Button>
+        </Box>
+      </Box>
     </Box>
   );
 }
