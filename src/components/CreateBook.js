@@ -177,6 +177,7 @@ function CreateBook() {
           <Box mb={2}>
             <FormControl fullWidth>
               <TextField
+                aria-label="title"
                 error={titleError}
                 size="small"
                 label="Title"
@@ -190,6 +191,7 @@ function CreateBook() {
           <Box mb={2}>
             <FormControl fullWidth>
               <TextField
+                aria-label="author"
                 error={authorError}
                 size="small"
                 label="Author"
