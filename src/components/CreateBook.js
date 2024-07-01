@@ -6,16 +6,16 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../store";
 import BulbsImage from "../assets/bulbs.svg";
 import FeatherImage from "../assets/feather.svg";
 import PenImage from "../assets/pen.svg";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import bookCover from '../assets/bookCover.svg';
-import book from '../assets/book.svg';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import bookCover from "../assets/bookCover.svg";
+import book from "../assets/book.svg";
 
 const years = [];
 const curYear = new Date().getFullYear();
@@ -36,8 +36,8 @@ function CreateBook() {
   const [yearError, setYearError] = useState(false);
   const [genreError, setGenreError] = useState(false);
 
-  const mdScreen = useMediaQuery('(max-width:1400px)');
-  const xsScreen = useMediaQuery('(max-width:800px)');
+  const mdScreen = useMediaQuery("(max-width:1400px)");
+  const xsScreen = useMediaQuery("(max-width:800px)");
 
   const navigate = useNavigate();
   const { books } = useStore();
@@ -115,17 +115,15 @@ function CreateBook() {
       <Box position="absolute" left={70} top={0}>
         <img src={BulbsImage} alt="Bulbs Image" style={{ height: "25vh" }} />
       </Box>
-      {
-        !mdScreen && (
-          <Box position="absolute" left="15%" top="50%">
-            <img
-              src={id ? FeatherImage : PenImage}
-              alt="Feather Image"
-              style={{ height: "25vh" }}
-            />
-          </Box>
-        )
-      }
+      {!mdScreen && (
+        <Box position="absolute" left="15%" top="50%">
+          <img
+            src={id ? FeatherImage : PenImage}
+            alt="Feather Image"
+            style={{ height: "25vh" }}
+          />
+        </Box>
+      )}
       <Box
         className="book-container"
         sx={{
@@ -134,36 +132,34 @@ function CreateBook() {
           padding: "30px 0",
           backgroundImage: `url(${!xsScreen ? book : bookCover})`,
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center"
+          backgroundPosition: "center",
         }}
       >
-        {
-          !xsScreen && (
-            <Box
-              width={400}
-              display="flex"
-              flexDirection="column"
-              px={10}
-              mt={-5}
-              boxSizing="border-box"
-            >
-              <Box className="book-label">Title</Box>
-              <Box className="book-label">Author</Box>
-              <Box className="book-label">Year Published</Box>
-              <Box className="book-label" mb={3}>
-                Genre
-              </Box>
-              <Button
-                variant="contained"
-                color="error"
-                sx={{ alignSelf: "flex-start" }}
-                onClick={() => navigate(-1)}
-              >
-                Back
-              </Button>
+        {!xsScreen && (
+          <Box
+            width={400}
+            display="flex"
+            flexDirection="column"
+            px={10}
+            mt={-5}
+            boxSizing="border-box"
+          >
+            <Box className="book-label">Title</Box>
+            <Box className="book-label">Author</Box>
+            <Box className="book-label">Year Published</Box>
+            <Box className="book-label" mb={3}>
+              Genre
             </Box>
-          )
-        }
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ alignSelf: "flex-start" }}
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </Button>
+          </Box>
+        )}
         <Box
           width={400}
           display="flex"
@@ -210,7 +206,7 @@ function CreateBook() {
                 id="year-label"
                 sx={{
                   pr: "10px",
-                  backgroundColor: "background.paper",
+                  backgroundColor: xsScreen ? "error" : "background.paper",
                 }}
               >
                 Year Published
@@ -282,18 +278,16 @@ function CreateBook() {
             >
               {id ? "Update" : "Add"}
             </Button>
-            {
-              xsScreen && (
-                <Button
-                  variant="contained"
-                  color="error"
-                  sx={{ alignSelf: "flex-start" }}
-                  onClick={() => navigate(-1)}
-                >
-                  Back
-                </Button>
-              )
-            }
+            {xsScreen && (
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ alignSelf: "flex-start" }}
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
