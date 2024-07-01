@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../store";
@@ -32,6 +28,11 @@ function CreateBook() {
   const [year, setYear] = useState(curYear);
   const [genre, setGenre] = useState("");
 
+  const [titleError, setTitleError] = useState(false);
+  const [authorError, setAuthorError] = useState(false);
+  const [yearError, setYearError] = useState(false);
+  const [genreError, setGenreError] = useState(false);
+
   const navigate = useNavigate();
   const { books } = useStore();
   const { id } = useParams();
@@ -49,6 +50,11 @@ function CreateBook() {
   }, [id, books]);
 
   const submit = () => {
+    setTitleError(!title)
+    setAuthorError(!author)
+    setYearError(!year)
+    setGenreError(!genre)
+
     if (title && author && year && genre) {
       if (id) {
         fetch("http://localhost:8080/books/" + id, {
@@ -148,27 +154,31 @@ function CreateBook() {
           <Box mb={2}>
             <FormControl fullWidth>
               <TextField
+                error={titleError}
                 size="small"
                 label="Title"
                 variant="outlined"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                helperText={titleError ? "Please enter title." : ""}
               />
             </FormControl>
           </Box>
           <Box mb={2}>
             <FormControl fullWidth>
               <TextField
+                error={authorError}
                 size="small"
                 label="Author"
                 variant="outlined"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
+                helperText={authorError ? "Please enter author." : ""}
               />
             </FormControl>
           </Box>
           <Box mb={2}>
-            <FormControl fullWidth size="small">
+            <FormControl fullWidth size="small" error={yearError}>
               <InputLabel id="year-label">Year Published</InputLabel>
               <Select
                 labelId="year-label"
@@ -182,10 +192,24 @@ function CreateBook() {
                   </MenuItem>
                 ))}
               </Select>
+              {
+                yearError && (
+                  <Box
+                    sx={{
+                      color: "#d32f2f",
+                      fontSize: "0.75rem",
+                      margin: "4px 14px 0 14px",
+                      letterSpacing: "0.03333em"
+                    }}
+                  >
+                    Please select year.
+                  </Box>
+                )
+              }
             </FormControl>
           </Box>
           <Box mb={3}>
-            <FormControl fullWidth size="small">
+            <FormControl fullWidth size="small" error={genreError}>
               <InputLabel id="genre-label">Genre</InputLabel>
               <Select
                 labelId="genre-label"
@@ -199,6 +223,20 @@ function CreateBook() {
                   </MenuItem>
                 ))}
               </Select>
+              {
+                genreError && (
+                  <Box
+                    sx={{
+                      color: "#d32f2f",
+                      fontSize: "0.75rem",
+                      margin: "4px 14px 0 14px",
+                      letterSpacing: "0.03333em"
+                    }}
+                  >
+                    Please select genre.
+                  </Box>
+                )
+              }
             </FormControl>
           </Box>
           <Button
