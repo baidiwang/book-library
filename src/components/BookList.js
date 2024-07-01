@@ -106,48 +106,26 @@ function BookList() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
+                justifyContent: "space-around",
+                textAlign: "center",
+                color: "#d32f2f",
+                height: "100%"
               }}
             >
-              <Box
-                sx={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: 16,
-                  gap: 2,
-                  overflowX: "auto",
-                  marginBottom: "100px",
-                }}
+              <Typography
+                variant="h2"
+                sx={{ color: "#d32f2f", fontSize: 30, fontWeight: 700 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    textAlign: "center",
-                    color: "#d32f2f",
-                  }}
+                BOOK LIBRARY
+              </Typography>
+              <Box>
+                <Typography
+                  variant="h2"
+                  sx={{ color: "#d32f2f", fontSize: 25, mb: 1, fontWeight: 600 }}
                 >
-                  <Typography
-                    variant="h2"
-                    sx={{ color: "#d32f2f", fontSize: 30 }}
-                  >
-                    BOOK LIBRARY
-                  </Typography>
-                  <Typography
-                    variant="h2"
-                    sx={{ color: "#d32f2f", fontSize: 30 }}
-                  >
-                    Scroll Here
-                  </Typography>
-                  <ArrowCircleRightRoundedIcon
-                    sx={{
-                      mt: 20,
-                      ml: 8,
-                      fontSize: 50,
-                    }}
-                  />
-                </Box>
+                  Scroll Here
+                </Typography>
+                <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} />
               </Box>
             </Box>
           </SwiperSlide>
@@ -162,28 +140,33 @@ function BookList() {
                   alignItems: "flex-start",
                   position: "relative",
                   borderRadius: "10px",
-                  padding: 5,
+                  width: 400,
+                  px: 10,
+                  py: 5,
                   height: "100%",
                   backgroundImage: `url(${bookCover})`,
                   backgroundRepeat: "no-repeat",
                   flexShrink: 0,
                   boxSizing: "border-box",
+                  backgroundSize: "100% 100%"
                 }}
               >
                 <Box
+                  position="relative"
                   display="flex"
                   flexDirection="column"
                   alignItems="flex-start"
                   justifyContent="center"
                   flex={1}
+                  width="100%"
+                  textAlign="left"
                 >
                   <IconButton
                     color="error"
                     sx={{
                       position: "absolute",
-                      right: 120,
-                      bottom: 410,
-                      fontSize: 3,
+                      right: -1,
+                      top: -1
                     }}
                     onClick={() => {
                       setDeleteBook(book);
