@@ -23,6 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "testServer": "jest server/server.test.js",
     "test:backend": "jest tests",
     "eject": "react-scripts eject"
   },

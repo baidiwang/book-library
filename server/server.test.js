@@ -16,7 +16,7 @@ describe("API endpoitns", () => {
       genre: "New Genre",
     };
     const res = await request(server).post("/books").send(newBook);
-    expect(res.statusCode).toEqual(200);
+    expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty("id");
   });
 
