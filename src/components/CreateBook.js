@@ -6,8 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  styled,
+  TextField
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../store";
@@ -95,35 +94,6 @@ function CreateBook() {
     }
   };
 
-  // Cutomize TextField and Select components
-  const CustomTextField = styled(TextField)({
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red", // border color turns red on focus
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "red", // label color turns red on focus
-    },
-  });
-
-  const CustomSelect = styled(Select)({
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
-      },
-      "&.Mui-error .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red",
-      },
-    },
-    "& .MuiInputLabel-root": {
-      color: "grey",
-      "&.Mui-focused": {
-        color: "red",
-      },
-    },
-  });
-
   return (
     <Box
       sx={{
@@ -183,7 +153,7 @@ function CreateBook() {
         >
           <Box mb={2}>
             <FormControl fullWidth>
-              <CustomTextField
+              <TextField
                 error={titleError}
                 size="small"
                 label="Title"
@@ -196,7 +166,7 @@ function CreateBook() {
           </Box>
           <Box mb={2}>
             <FormControl fullWidth>
-              <CustomTextField
+              <TextField
                 error={authorError}
                 size="small"
                 label="Author"
@@ -218,7 +188,7 @@ function CreateBook() {
               >
                 Year Published
               </InputLabel>
-              <CustomSelect
+              <Select
                 labelId="year-label"
                 value={year}
                 label="Year Published"
@@ -229,7 +199,7 @@ function CreateBook() {
                     {year}
                   </MenuItem>
                 ))}
-              </CustomSelect>
+              </Select>
               {yearError && (
                 <Box
                   sx={{
@@ -247,7 +217,7 @@ function CreateBook() {
           <Box mb={3}>
             <FormControl fullWidth size="small" error={genreError}>
               <InputLabel id="genre-label">Genre</InputLabel>
-              <CustomSelect
+              <Select
                 labelId="genre-label"
                 value={genre}
                 label="Genre"
@@ -258,7 +228,7 @@ function CreateBook() {
                     {genre}
                   </MenuItem>
                 ))}
-              </CustomSelect>
+              </Select>
               {genreError && (
                 <Box
                   sx={{
