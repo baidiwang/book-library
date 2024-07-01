@@ -19,8 +19,9 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  borderRadius: 1,
+  borderRadius: 5,
   p: 4,
+  boxShadow: 24,
 };
 
 function BookList() {
@@ -76,7 +77,21 @@ function BookList() {
           <img src={BulbImage} alt="Bulb Image" style={{ width: 100 }} />
         </Box>
 
-        <IconButton color="error" onClick={() => navigate("create")}>
+        <IconButton
+          color="error"
+          onClick={() => navigate("create")}
+          sx={{
+            marginTop: 2,
+            marginRight: 2,
+            bgcolor: "background.paper",
+            borderRadius: "50%",
+            "&:hover": {
+              bgcolor: "grey.200",
+            },
+            width: 34,
+            height: 34,
+          }}
+        >
           <AddCircleIcon sx={{ fontSize: 40 }} />
         </IconButton>
       </Box>
@@ -93,7 +108,7 @@ function BookList() {
       >
         <Swiper
           slidesPerView={4}
-          spaceBetween={40}
+          spaceBetween={10}
           mousewheel={true}
           pagination={{
             clickable: true,
@@ -109,7 +124,7 @@ function BookList() {
                 justifyContent: "space-around",
                 textAlign: "center",
                 color: "#d32f2f",
-                height: "100%"
+                height: "100%",
               }}
             >
               <Typography
@@ -121,7 +136,12 @@ function BookList() {
               <Box>
                 <Typography
                   variant="h2"
-                  sx={{ color: "#d32f2f", fontSize: 25, mb: 1, fontWeight: 600 }}
+                  sx={{
+                    color: "#d32f2f",
+                    fontSize: 25,
+                    mb: 1,
+                    fontWeight: 600,
+                  }}
                 >
                   Scroll Here
                 </Typography>
@@ -148,7 +168,8 @@ function BookList() {
                   backgroundRepeat: "no-repeat",
                   flexShrink: 0,
                   boxSizing: "border-box",
-                  backgroundSize: "100% 100%"
+                  backgroundSize: "100% 100%",
+                  color: "white",
                 }}
               >
                 <Box
@@ -166,7 +187,14 @@ function BookList() {
                     sx={{
                       position: "absolute",
                       right: -1,
-                      top: -1
+                      top: -1,
+                      bgcolor: "background.paper",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      "&:hover": {
+                        bgcolor: "grey.200",
+                      },
                     }}
                     onClick={() => {
                       setDeleteBook(book);
@@ -191,6 +219,12 @@ function BookList() {
                 <Button
                   color="error"
                   variant="contained"
+                  sx={{
+                    "&:hover": {
+                      bgcolor: "error.200",
+                    },
+                    boxShadow: 2,
+                  }}
                   onClick={() => navigate("/edit/" + book.id)}
                 >
                   Edit
@@ -216,18 +250,29 @@ function BookList() {
             <InfoIcon sx={{ marginRight: 1, color: "#d32f2f" }} />
             Delete Confirm
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2, ml: 0.5 }}>
             Do you really want to delete the book?
           </Typography>
           <Box display="flex" justifyContent="flex-end" mt={4}>
             <Button
-              sx={{ marginRight: 1 }}
+              sx={{ marginRight: 1, borderRadius: 3 }}
               variant="outlined"
+              color="inherit"
               onClick={handleClose}
             >
               Cancel
             </Button>
-            <Button variant="contained" onClick={handleConfirm}>
+            <Button
+              variant="contained"
+              onClick={handleConfirm}
+              sx={{
+                borderRadius: 3,
+                bgcolor: "error.main",
+                "&:hover": {
+                  bgcolor: "error.dark",
+                },
+              }}
+            >
               Confirm
             </Button>
           </Box>

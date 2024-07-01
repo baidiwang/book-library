@@ -1,10 +1,14 @@
 import "./App.css";
 import BookList from "./components/BookList";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import CreateBook from './components/CreateBook';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CreateBook from "./components/CreateBook";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, Arial, sans-serif",
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -13,20 +17,22 @@ const router = createBrowserRouter([
   },
   {
     path: "create",
-    element: <CreateBook />
+    element: <CreateBook />,
   },
   {
     path: "edit/:id",
-    element: <CreateBook />
-  }
+    element: <CreateBook />,
+  },
 ]);
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-      <footer></footer>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <RouterProvider router={router} />
+        <footer></footer>
+      </div>
+    </ThemeProvider>
   );
 }
 

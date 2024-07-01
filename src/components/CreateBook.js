@@ -7,6 +7,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  styled,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../store";
@@ -50,10 +51,10 @@ function CreateBook() {
   }, [id, books]);
 
   const submit = () => {
-    setTitleError(!title)
-    setAuthorError(!author)
-    setYearError(!year)
-    setGenreError(!genre)
+    setTitleError(!title);
+    setAuthorError(!author);
+    setYearError(!year);
+    setGenreError(!genre);
 
     if (title && author && year && genre) {
       if (id) {
@@ -93,6 +94,35 @@ function CreateBook() {
       }
     }
   };
+
+  // Cutomize TextField and Select components
+  const CustomTextField = styled(TextField)({
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: "red", // border color turns red on focus
+      },
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "red", // label color turns red on focus
+    },
+  });
+
+  const CustomSelect = styled(Select)({
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: "red",
+      },
+      "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+        borderColor: "red",
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color: "grey",
+      "&.Mui-focused": {
+        color: "red",
+      },
+    },
+  });
 
   return (
     <Box
@@ -153,7 +183,7 @@ function CreateBook() {
         >
           <Box mb={2}>
             <FormControl fullWidth>
-              <TextField
+              <CustomTextField
                 error={titleError}
                 size="small"
                 label="Title"
@@ -166,7 +196,7 @@ function CreateBook() {
           </Box>
           <Box mb={2}>
             <FormControl fullWidth>
-              <TextField
+              <CustomTextField
                 error={authorError}
                 size="small"
                 label="Author"
@@ -179,11 +209,19 @@ function CreateBook() {
           </Box>
           <Box mb={2}>
             <FormControl fullWidth size="small" error={yearError}>
-              <InputLabel id="year-label">Year Published</InputLabel>
-              <Select
+              <InputLabel
+                id="year-label"
+                sx={{
+                  pr: "10px",
+                  backgroundColor: "background.paper",
+                }}
+              >
+                Year Published
+              </InputLabel>
+              <CustomSelect
                 labelId="year-label"
                 value={year}
-                label="Age"
+                label="Year Published"
                 onChange={(e) => setYear(e.target.value)}
               >
                 {years.map((year) => (
@@ -191,30 +229,28 @@ function CreateBook() {
                     {year}
                   </MenuItem>
                 ))}
-              </Select>
-              {
-                yearError && (
-                  <Box
-                    sx={{
-                      color: "#d32f2f",
-                      fontSize: "0.75rem",
-                      margin: "4px 14px 0 14px",
-                      letterSpacing: "0.03333em"
-                    }}
-                  >
-                    Please select year.
-                  </Box>
-                )
-              }
+              </CustomSelect>
+              {yearError && (
+                <Box
+                  sx={{
+                    color: "#d32f2f",
+                    fontSize: "0.75rem",
+                    margin: "4px 14px 0 14px",
+                    letterSpacing: "0.03333em",
+                  }}
+                >
+                  Please select year.
+                </Box>
+              )}
             </FormControl>
           </Box>
           <Box mb={3}>
             <FormControl fullWidth size="small" error={genreError}>
               <InputLabel id="genre-label">Genre</InputLabel>
-              <Select
+              <CustomSelect
                 labelId="genre-label"
                 value={genre}
-                label="Age"
+                label="Genre"
                 onChange={(e) => setGenre(e.target.value)}
               >
                 {genres.map((genre) => (
@@ -222,21 +258,19 @@ function CreateBook() {
                     {genre}
                   </MenuItem>
                 ))}
-              </Select>
-              {
-                genreError && (
-                  <Box
-                    sx={{
-                      color: "#d32f2f",
-                      fontSize: "0.75rem",
-                      margin: "4px 14px 0 14px",
-                      letterSpacing: "0.03333em"
-                    }}
-                  >
-                    Please select genre.
-                  </Box>
-                )
-              }
+              </CustomSelect>
+              {genreError && (
+                <Box
+                  sx={{
+                    color: "#d32f2f",
+                    fontSize: "0.75rem",
+                    margin: "4px 14px 0 14px",
+                    letterSpacing: "0.03333em",
+                  }}
+                >
+                  Please select genre.
+                </Box>
+              )}
             </FormControl>
           </Box>
           <Button
