@@ -185,6 +185,7 @@ function CreateBook() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 helperText={titleError ? "Please enter title." : ""}
+                inputProps={{ "data-testid": "title" }}
               />
             </FormControl>
           </Box>
@@ -199,6 +200,7 @@ function CreateBook() {
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 helperText={authorError ? "Please enter author." : ""}
+                inputProps={{ "data-testid": "author" }}
               />
             </FormControl>
           </Box>
@@ -218,6 +220,7 @@ function CreateBook() {
                 value={year}
                 label="Year Published"
                 onChange={(e) => setYear(e.target.value)}
+                inputProps={{ "data-testid": "year" }}
               >
                 {years.map((year) => (
                   <MenuItem key={year} value={year}>
@@ -247,6 +250,7 @@ function CreateBook() {
                 value={genre}
                 label="Genre"
                 onChange={(e) => setGenre(e.target.value)}
+                inputProps={{ "data-testid": "genre" }}
               >
                 {genres.map((genre) => (
                   <MenuItem key={genre} value={genre}>
@@ -274,6 +278,7 @@ function CreateBook() {
               color="error"
               sx={{ alignSelf: "flex-start", mr: 2 }}
               onClick={submit}
+              data-testid="add"
             >
               {id ? "Update" : "Add"}
             </Button>
