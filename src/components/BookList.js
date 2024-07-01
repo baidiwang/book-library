@@ -11,6 +11,7 @@ import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 import BulbImage from "../assets/bulb.svg";
 import bookCover from "../assets/bookCover.svg";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const style = {
   position: "absolute",
@@ -28,6 +29,9 @@ function BookList() {
   const { books, setBooks, deleteBook, setDeleteBook } = useStore();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  const mdScreen = useMediaQuery('(max-width:1400px)');
+  const smScreen = useMediaQuery('(max-width:1080px)');
+  const xsScreen = useMediaQuery('(max-width:800px)');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -107,48 +111,49 @@ function BookList() {
         }}
       >
         <Swiper
-          slidesPerView={4}
+          slidesPerView={xsScreen ? 1 : smScreen ? 2 : mdScreen ? 3 : 4}
           spaceBetween={10}
           mousewheel={true}
-          pagination={{
-            clickable: true,
-          }}
           modules={[Mousewheel]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                textAlign: "center",
-                color: "#d32f2f",
-                height: "100%",
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{ color: "#d32f2f", fontSize: 30, fontWeight: 700 }}
-              >
-                BOOK LIBRARY
-              </Typography>
-              <Box mt={5}>
-                <Typography
-                  variant="h2"
+          {
+            !xsScreen && (
+              <SwiperSlide>
+                <Box
                   sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    textAlign: "center",
                     color: "#d32f2f",
-                    fontSize: 25,
-                    mb: 1,
-                    fontWeight: 600,
+                    height: "100%",
                   }}
                 >
-                  Scroll Here
-                </Typography>
-                <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} />
-              </Box>
-            </Box>
-          </SwiperSlide>
+                  <Typography
+                    variant="h2"
+                    sx={{ color: "#d32f2f", fontSize: 30, fontWeight: 700 }}
+                  >
+                    BOOK LIBRARY
+                  </Typography>
+                  <Box mt={5}>
+                    <Typography
+                      variant="h2"
+                      sx={{
+                        color: "#d32f2f",
+                        fontSize: 25,
+                        mb: 1,
+                        fontWeight: 600,
+                      }}
+                    >
+                      Scroll Here
+                    </Typography>
+                    <ArrowCircleRightRoundedIcon sx={{ fontSize: 50 }} />
+                  </Box>
+                </Box>
+              </SwiperSlide>
+            )
+          }
 
           {books.map((book) => (
             <SwiperSlide key={book.id}>
