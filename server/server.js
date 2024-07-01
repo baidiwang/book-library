@@ -125,6 +125,12 @@ app.delete("/books/:id", (req, res) => {
   }
 });
 
+// Error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Server error!')
+})
+
 app.listen(8080, () => {
   console.log(`Server start http://localhost:8080`);
 });

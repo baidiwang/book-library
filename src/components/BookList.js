@@ -121,7 +121,7 @@ function BookList() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-around",
+                justifyContent: "center",
                 textAlign: "center",
                 color: "#d32f2f",
                 height: "100%",
@@ -133,7 +133,7 @@ function BookList() {
               >
                 BOOK LIBRARY
               </Typography>
-              <Box>
+              <Box mt={5}>
                 <Typography
                   variant="h2"
                   sx={{
