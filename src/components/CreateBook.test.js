@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
 
@@ -47,10 +47,10 @@ describe("CreateBook component", () => {
     global.fetch = jest.fn(() => ({
       then: () => ({
         then: (callback) => {
-          callback()
-        }
-      })
-    }))
+          callback();
+        },
+      }),
+    }));
 
     render(
       <BrowserRouter>

@@ -1,5 +1,6 @@
 import BookList from "./BookList";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("../store", () => ({
   useStore: () => ({
@@ -29,14 +30,25 @@ describe("BookList component", () => {
 });
 
 it("renders the BookList component", () => {
-  render(<BookList />);
+  render(
+    <BrowserRouter>
+      <BookList />
+    </BrowserRouter>
+  );
   expect(screen.getByText("BOOK LIBRARY")).toBeInTheDocument();
 });
 
 it("calls fetch when deleting a book", () => {
-  render(<BookList />);
-  fireEvent.click(screen.getByRole("button", { name: /delete/i }));
-  expect(fetch).toHaveBeenCalledTimes("http://localhost:8080/books/1", {
+  render(
+    <BrowserRouter>
+      <BookList />
+    </BrowserRouter>
+  );
+  // Assuming there's a delete button visible in the document
+  const deleteButton = screen.getByRole("button", { name: /delete/i });
+  fireEvent.click(deleteButton);
+  expect(fetch).toHaveBeenCalledWith("http://localhost:8080/books/1", {
     method: "DELETE",
   });
+  expect(fetch).toHaveBeenCalledTimes(1);
 });

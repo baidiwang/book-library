@@ -1,14 +1,13 @@
 # Book Library App
 
-This project used React for the frontend and Express for the backend. 
-TBC...
+The application is built with React for the frontend, MUI for styling, Node.js for the backend, and Jest for for both frontend and backend unit tests. Zustand is used for simple state management. Swiper is also utilized for a dynamic swiping effect on the book list. The responsive design is also implemented for mobile view.
 
-## More information
-Check my design in Figma: https://www.figma.com/design/b6RUVO5GreNBg2Hou5MoHy/VISA-assessment-design?node-id=0-1&t=GQoPpgXGvKndMc8X-1
+## Figma Design
 
-Sample design: https://pudding.cool/2021/08/spades/
+Check my Figma design for this application: https://www.figma.com/design/b6RUVO5GreNBg2Hou5MoHy/VISA-assessment-design?node-id=0-1&t=GQoPpgXGvKndMc8X-1
 
 ## Command Line
+
 In the project directory, you can run:
 
 ### `npm start`
@@ -21,8 +20,15 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Frontend Unit Tests: Launches the test runner in the interactive watch mode specifically for frontend testing.
+
+#### Current Test Limitations
+
+Due to issues with Swiper integration, tests for the `BookList` component cannot currently be run.
+
+### `npm testServer`
+
+Backend Unit Tests: Executes the tests for the backend to verify that all API endpoints function correctly.
 
 ### `npm run build`
 
@@ -43,34 +49,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# book-library

@@ -269,25 +269,25 @@ function CreateBook() {
             </FormControl>
           </Box>
           <Box>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{ alignSelf: "flex-start", mr: 2 }}
-              onClick={submit}
-              data-testid="add"
-            >
-              {id ? "Update" : "Add"}
-            </Button>
             {xsScreen && (
               <Button
                 variant="contained"
                 color="error"
-                sx={{ alignSelf: "flex-start" }}
+                sx={{ alignSelf: "flex-start", mr: 2 }}
                 onClick={() => navigate(-1)}
               >
                 Back
               </Button>
             )}
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ alignSelf: "flex-start" }}
+              onClick={submit}
+              data-testid="add"
+            >
+              {id ? "Update" : "Add"}
+            </Button>
           </Box>
         </Box>
       </Box>
