@@ -1,6 +1,6 @@
 # Book Library App
 
-The application is built with React for the frontend, MUI for styling, Node.js for the backend, and Jest for for both frontend and backend unit tests. Zustand is used for simple state management. Swiper is also utilized for a dynamic swiping effect on the book list. The responsive design is also implemented for mobile view.
+The application is built with React for the frontend, MUI for styling, Node.js for the backend, and Jest for both frontend and backend unit tests. Zustand is used for simple state management. Swiper is also utilized for a dynamic swiping effect on the book list. The responsive design is also implemented for mobile view.
 
 ## Figma Design
 
@@ -15,8 +15,9 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `node server.js`
+
+Starts the backend server for handling API requests.
 
 ### `npm test`
 
