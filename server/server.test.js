@@ -1,4 +1,4 @@
-const request = require("supertest");
+const request = require("supertest"); // A library for testing HTTP endpoints in Node.js
 const server = require("./server");
 
 describe("API endpoitns", () => {

@@ -2,6 +2,7 @@ import BookList from "./BookList";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
+// Mock the testing env
 jest.mock("../store", () => ({
   useStore: () => ({
     books: [
@@ -19,6 +20,7 @@ jest.mock("../store", () => ({
   }),
 }));
 
+//  Mocked to prevent actual API calls during the test
 global.fetch = jest.fn(() =>
   Promise.resolve({ json: () => Promise.resolve([]) })
 );
@@ -50,5 +52,5 @@ it("calls fetch when deleting a book", () => {
   expect(fetch).toHaveBeenCalledWith("http://localhost:8080/books/1", {
     method: "DELETE",
   });
-  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(fetch).toHaveBeenCalledTimes(1); // Check if it is only called once
 });

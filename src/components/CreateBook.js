@@ -13,17 +13,17 @@ import { useStore } from "../store";
 import BulbsImage from "../assets/bulbs.svg";
 import FeatherImage from "../assets/feather.svg";
 import PenImage from "../assets/pen.svg";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import bookCover from "../assets/bookCover.svg";
 import book from "../assets/book.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const years = [];
 const curYear = new Date().getFullYear();
 for (let i = curYear; i > curYear - 100; i--) {
   years.push(i);
-}
+} // Generates a list of the last 100 years for a dropdown menu
 
-const genres = ["Fantasy", "Children's literature", "Picture book"];
+const genres = ["Fantasy", "Children's literature", "Picture book"]; // For selection in the form
 
 function CreateBook() {
   const [title, setTitle] = useState("");
@@ -31,6 +31,7 @@ function CreateBook() {
   const [year, setYear] = useState(curYear);
   const [genre, setGenre] = useState("");
 
+  // Validation states
   const [titleError, setTitleError] = useState(false);
   const [authorError, setAuthorError] = useState(false);
   const [yearError, setYearError] = useState(false);
@@ -40,7 +41,7 @@ function CreateBook() {
   const xsScreen = useMediaQuery("(max-width:800px)");
 
   const navigate = useNavigate();
-  const { books } = useStore();
+  const { books } = useStore(); // Zustand store
   const { id } = useParams();
 
   useEffect(() => {
@@ -115,26 +116,29 @@ function CreateBook() {
       <Box position="absolute" left={70} top={0}>
         <img src={BulbsImage} alt="Bulbs Image" style={{ height: "25vh" }} />
       </Box>
+
       {!mdScreen && (
         <Box position="absolute" left="15%" top="50%">
           <img
             src={id ? FeatherImage : PenImage}
-            alt="Feather Image"
+            alt="CreatBook Image"
             style={{ height: "25vh" }}
           />
         </Box>
       )}
+
       <Box
         className="book-container"
         sx={{
           width: xsScreen ? "100%" : 800,
           height: 500,
           padding: "30px 0",
-          backgroundImage: `url(${!xsScreen ? book : bookCover})`,
+          backgroundImage: `url(${!xsScreen ? book : bookCover})`, // responsive design
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
       >
+        {/* desktop version, left page */}
         {!xsScreen && (
           <Box
             width={400}
@@ -160,6 +164,8 @@ function CreateBook() {
             </Button>
           </Box>
         )}
+
+        {/* Both desktop and mobile versions, and on the right page for PC */}
         <Box
           width={400}
           display="flex"
@@ -180,11 +186,12 @@ function CreateBook() {
                 variant="outlined"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                helperText={titleError ? "Please enter title." : ""}
-                inputProps={{ "data-testid": "title" }}
+                helperText={titleError ? "Please enter a title." : ""}
+                inputProps={{ "data-testid": "title" }} // For testing mainly
               />
             </FormControl>
           </Box>
+
           <Box mb={2}>
             <FormControl fullWidth>
               <TextField
@@ -195,11 +202,12 @@ function CreateBook() {
                 variant="outlined"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                helperText={authorError ? "Please enter author." : ""}
+                helperText={authorError ? "Please enter an author." : ""}
                 inputProps={{ "data-testid": "author" }}
               />
             </FormControl>
           </Box>
+
           <Box mb={2}>
             <FormControl fullWidth size="small" error={yearError}>
               <InputLabel
@@ -233,11 +241,12 @@ function CreateBook() {
                     letterSpacing: "0.03333em",
                   }}
                 >
-                  Please select year.
+                  Please select a year.
                 </Box>
               )}
             </FormControl>
           </Box>
+
           <Box mb={3}>
             <FormControl fullWidth size="small" error={genreError}>
               <InputLabel id="genre-label">Genre</InputLabel>
@@ -263,11 +272,13 @@ function CreateBook() {
                     letterSpacing: "0.03333em",
                   }}
                 >
-                  Please select genre.
+                  Please select a genre.
                 </Box>
               )}
             </FormControl>
           </Box>
+
+          {/* Mobile view buttons  */}
           <Box>
             {xsScreen && (
               <Button

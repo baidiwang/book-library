@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
 import InfoIcon from "@mui/icons-material/Info";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
+import { Mousewheel, Keyboard } from "swiper/modules";
 import "swiper/css";
 import BulbImage from "../assets/bulb.svg";
 import bookCover from "../assets/bookCover.svg";
@@ -26,20 +26,42 @@ const style = {
 };
 
 function BookList() {
-  const { books, setBooks, deleteBook, setDeleteBook } = useStore();
-  const [open, setOpen] = React.useState(false);
+  const { books, setBooks, deleteBook, setDeleteBook } = useStore(); // Extracts data and actions from Zustand store
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  // Responsive design
   const mdScreen = useMediaQuery("(max-width:1400px)");
   const smScreen = useMediaQuery("(max-width:1080px)");
   const xsScreen = useMediaQuery("(max-width:800px)");
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // Controls visibility of the modal
+  const handleOpen = (book) => {
+    setOpen(true);
+    setSelectedBook(book);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedBook(null);
+  };
+
+  // Fetch books from the backend data
   useEffect(() => {
     getAllBooks();
   }, []);
 
+  const getAllBooks = () => {
+    fetch("http://localhost:8080/books")
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks(data);
+      })
+      .catch((error) => console.error("Error fetching books:", error));
+  };
+
+  // Deletes a book and refetches the list upon confirmation
   const handleConfirm = () => {
     if (deleteBook) {
       fetch("http://localhost:8080/books/" + deleteBook.id, {
@@ -51,15 +73,6 @@ function BookList() {
         })
         .catch((error) => console.error("Error delete books:", error));
     }
-  };
-
-  const getAllBooks = () => {
-    fetch("http://localhost:8080/books")
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data);
-      })
-      .catch((error) => console.error("Error fetching books:", error));
   };
 
   return (
@@ -99,6 +112,7 @@ function BookList() {
           <AddCircleIcon sx={{ fontSize: 40 }} />
         </IconButton>
       </Box>
+      {/* Swiper effect */}
       <Box
         sx={{
           flex: 1,
@@ -113,8 +127,11 @@ function BookList() {
         <Swiper
           slidesPerView={xsScreen ? 1 : smScreen ? 2 : mdScreen ? 3 : 4}
           spaceBetween={10}
+          keyboard={{
+            enabled: true,
+          }}
           mousewheel={true}
-          modules={[Mousewheel]}
+          modules={[Mousewheel, Keyboard]}
           className="mySwiper"
         >
           {!xsScreen && (
@@ -201,7 +218,7 @@ function BookList() {
                     }}
                     onClick={() => {
                       setDeleteBook(book);
-                      handleOpen();
+                      handleOpen(book);
                     }}
                   >
                     <CloseIcon />
@@ -219,6 +236,7 @@ function BookList() {
                     Genre: {book.genre}
                   </Typography>
                 </Box>
+
                 <Button
                   color="error"
                   variant="contained"
@@ -254,7 +272,9 @@ function BookList() {
             Delete Confirm
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2, ml: 0.5 }}>
-            Do you really want to delete the book?
+            {/* Do you really want to delete the book? */}
+            {selectedBook &&
+              `Do you really want to delete ${selectedBook.title}?`}
           </Typography>
           <Box display="flex" justifyContent="flex-end" mt={4}>
             <Button

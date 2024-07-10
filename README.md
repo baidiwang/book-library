@@ -6,6 +6,10 @@ The application is built with React for the frontend, MUI for styling, Node.js f
 
 Check my Figma design for this application: https://www.figma.com/design/b6RUVO5GreNBg2Hou5MoHy/VISA-assessment-design?node-id=0-1&t=GQoPpgXGvKndMc8X-1
 
+## Slide Presentation
+
+https://docs.google.com/presentation/d/1y9FOqJP6yLBeHaHe0os6ZqUnQZ8MSSWDPj0RXKAIkGs/edit?usp=sharing
+
 ## Command Line
 
 In the project directory, you can run:
